@@ -7,7 +7,6 @@ let cargoMassInput = "";
 
 window.addEventListener("load", function() {
 
-
    let form = document.querySelector("form");
       form.addEventListener("submit", function(event) {
          pilotNameInput = document.querySelector("input[name=pilotName]").value;
@@ -66,29 +65,48 @@ window.addEventListener("load", function() {
          }
          
          if (noEntryIsBlank(pilotNameInput, copilotNameInput, fuelLevelInput, cargoMassInput) && pilotNameIsString(pilotNameInput) && copilotNameIsString(copilotNameInput) && fuelLevelIsNumber(fuelLevelInput) && cargoMassIsNumber(cargoMassInput)){
-            console.log ("this WORKS!");
+                           // console.log ("this WORKS!");
             document.getElementById("pilotStatus").innerHTML = `Pilot ${pilotNameInput} is ready for launch.`;
-            document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilotNameInput} is ready for launch.`;   
+            document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilotNameInput} is ready for launch.`;
+                           // console.log("Pilots updated, big if is true")
          
          if ((fuelLevelInput < 10000) || (cargoMassInput > 10000)){
-
+                           // console.log("Just entered   if ((fuelLevelInput < 10000) || (cargoMassInput > 10000))")
                document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch";
                document.getElementById("launchStatus").style.color = "red";
                document.getElementById("faultyItems").style.visibility = "visible";
+                           // console.log("if (fuelLevelInput < 10000) || (cargoMassInput > 10000)");
                
                if (fuelLevelInput < 10000){
                   document.getElementById("fuelStatus").innerHTML = "Fuel level insufficient for launch";
                   document.getElementById("fuelStatus").style.color = "red";
+                           // console.log("if (fuelLevelInput < 10000)");
+               } else {
+                  document.getElementById("fuelStatus").innerHTML = "Fuel level sufficient for launch";
+                  document.getElementById("fuelStatus").style.color = "black";
+
                }
                
                if (cargoMassInput > 10000){
                   document.getElementById("cargoStatus").innerHTML = "Cargo mass is too high for launch";
                   document.getElementById("cargoStatus").style.color = "red";
+                           // console.log("if (cargoMassInput > 10000)");
+               } else {
+                  document.getElementById("cargoStatus").innerHTML = "Cargo mass is low enough for launch";
+                  document.getElementById("cargoStatus").style.color = "black";
                }
+
+
             } else {               
                document.getElementById("launchStatus").innerHTML = "Shuttle ready for launch";
                document.getElementById("launchStatus").style.color = "green";
                document.getElementById("faultyItems").style.visibility = "visible";
+
+               document.getElementById("fuelStatus").innerHTML = "Fuel level sufficient for launch";
+               document.getElementById("fuelStatus").style.color = "black";
+               document.getElementById("cargoStatus").innerHTML = "Cargo mass is low enough for launch";
+               document.getElementById("cargoStatus").style.color = "black";
+                           // console.log("else if ((fuelLevelInput < 10000) || (cargoMassInput > 10000))");
                 
                fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response){
                   response.json().then( function(json) {
@@ -111,8 +129,9 @@ window.addEventListener("load", function() {
                   });
                });
             }
+            event.preventDefault();
          }
-        
+                           // console.log("line 133 nust before last event.preventDefault()");
          event.preventDefault();
       
       });
